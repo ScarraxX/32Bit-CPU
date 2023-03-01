@@ -1,0 +1,37 @@
+loop:	LDA numToCK
+	MOD numToCMP
+	JZ  checkQuo
+	INC numToCMP
+	JMP loop
+	
+checkQ:	LDA numToCK
+	DIV numToCMP
+	CMP one
+	JZ  printPrime
+	JMP notPrime
+	
+print:	LDA numToCK
+	OUT
+	DEC maxPrimes
+	JZ  loopEnd
+	
+notP:	LDI 2
+	STA numToCMP
+	INC nomToCK
+	
+	JMP loop
+	
+loopEnd:HLT
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
