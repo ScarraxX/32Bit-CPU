@@ -1,0 +1,33 @@
+#define HLT 0b 1000 0000 0000 0000  // Halt clock
+#define MI  0b 0100 0000 0000 0000  // Memory address register in
+#define RI  0b 0010 0000 0000 0000  // RAM data in
+#define RO  0b 0001 0000 0000 0000  // RAM data out
+#define IO  0b 0000 1000 0000 0000  // Instruction register out
+#define II  0b 0000 0100 0000 0000  // Instruction register in
+#define AI  0b 0000 0010 0000 0000  // A register in
+#define AO  0b 0000 0001 0000 0000  // A register out
+#define EO  0b 0000 0000 1000 0000  // ALU out
+#define SU  0b 0000 0000 0100 0000  // ALU subtract
+#define BI  0b 0000 0000 0010 0000  // B register in
+#define OI  0b 0000 0000 0001 0000  // Output register in
+#define CE  0b 0000 0000 0000 1000  // Program counter enable
+#define CO  0b 0000 0000 0000 0100  // Program counter out
+#define J   0b 0000 0000 0000 0010  // Jump (program counter in)
+#define FI  0b 0000 0000 0000 0001  // Flags in
+
+  { MI|CO,  RO|II|CE,  0,      0,      0,           0, 0, 0 },   // 0000 - NOP  4004 1408 0000 0000 0000 0000 0000 0000
+  { MI|CO,  RO|II|CE,  IO|MI,  RO|AI,  0,           0, 0, 0 },   // 0001 - LDA  4004 1408 4800 1200 0000 0000 0000 0000
+  { MI|CO,  RO|II|CE,  IO|MI,  RO|BI,  EO|AI|FI,    0, 0, 0 },   // 0010 - ADD  4004 1408 4800 1020 0281 0000 0000 0000
+  { MI|CO,  RO|II|CE,  IO|MI,  RO|BI,  EO|AI|SU|FI, 0, 0, 0 },   // 0011 - SUB  4004 1408 4800 1020 02c1 0000 0000 0000
+  { MI|CO,  RO|II|CE,  IO|MI,  AO|RI,  0,           0, 0, 0 },   // 0100 - STA  4004 1408 4800 2100 0000 0000 0000 0000
+  { MI|CO,  RO|II|CE,  IO|AI,  0,      0,           0, 0, 0 },   // 0101 - LDI  4004 1408 0a00 0000 0000 0000 0000 0000
+  { MI|CO,  RO|II|CE,  IO|J,   0,      0,           0, 0, 0 },   // 0110 - JMP  4004 1408 0802 0000 0000 0000 0000 0000
+  { MI|CO,  RO|II|CE,  0,      0,      0,           0, 0, 0 },   // 0111 - JC   4004 1408 0000 0000 0000 0000 0000 0000
+  { MI|CO,  RO|II|CE,  0,      0,      0,           0, 0, 0 },   // 1000 - JZ   4004 1408 0000 0000 0000 0000 0000 0000
+  { MI|CO,  RO|II|CE,  0,      0,      0,           0, 0, 0 },   // 1001        4004 1408 0000 0000 0000 0000 0000 0000
+  { MI|CO,  RO|II|CE,  0,      0,      0,           0, 0, 0 },   // 1010        4004 1408 0000 0000 0000 0000 0000 0000
+  { MI|CO,  RO|II|CE,  0,      0,      0,           0, 0, 0 },   // 1011        4004 1408 0000 0000 0000 0000 0000 0000
+  { MI|CO,  RO|II|CE,  0,      0,      0,           0, 0, 0 },   // 1100        4004 1408 0000 0000 0000 0000 0000 0000
+  { MI|CO,  RO|II|CE,  0,      0,      0,           0, 0, 0 },   // 1101        4004 1408 0000 0000 0000 0000 0000 0000
+  { MI|CO,  RO|II|CE,  AO|OI,  0,      0,           0, 0, 0 },   // 1110 - OUT  4004 1408 0110 0000 0000 0000 0000 0000
+  { MI|CO,  RO|II|CE,  HLT,    0,      0,           0, 0, 0 },   // 1111 - HLT  4004 1408 8000 0000 0000 0000 0000 0000
